@@ -13,7 +13,7 @@ namespace Proyecto10AbrilFront.Controllers
         {
             return View();
         }
-        public ActionResult AbonadosAdmin()
+        public ActionResult AbonadosAdmin() 
         {
             return View();
         }

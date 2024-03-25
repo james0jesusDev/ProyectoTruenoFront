@@ -101,26 +101,22 @@
 
     <div id="formularioAlta" style="display: none;" class="container form-bg">
         <h2>Formulario de Alta de Abonado</h2>
-        <form>
+        <form id="formularioAbonado">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        @*<label for="nombre" class="text-center">Nombre:</label>*@
                         <input type="text" class="form-control text-center" id="nombre" placeholder="Nombre" required>
                     </div>
                     <div class="form-group">
-                        @*<label for="apellido">Apellido:</label>*@
                         <input type="text" class="form-control text-center" id="apellido" placeholder="Apellido" required>
                     </div>
                     <div class="form-group">
-                        @*<label for="telefono">Teléfono:</label>*@
                         <input type="text" class="form-control text-center" id="telefono" placeholder="Teléfono" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" onclick="enviarAlta()">Enviar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
                         <button type="button" class="btn btn-secondary" onclick="cancelarAlta()">Cancelar</button>
                     </div>
-
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -138,49 +134,50 @@
         <p>Facilidades para asistir a los entrenamientos del equipo de forma gratuita</p>
         <p>Oportunidades para conocer a los jugadores en eventos especiales</p>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 <script>
+
+    //Cambios James  Funciona el crear abonados 
     function darseAlta() {
-        $('#pgAbonado').css('display', 'none'); // Mostrar el formulario de alta
-        $('#formularioAlta').css('display', 'block'); // Mostrar el formulario de alta
+        $('#pgAbonado').css('display', 'none');
+        $('#formularioAlta').css('display', 'block');
     }
 
     function cancelarAlta() {
-        $('#formularioAlta').css('display', 'none'); // Ocultar el formulario de alta
-        $('#pgAbonado').css('display', 'block'); // Mostrar el formulario de alta
-
+        $('#formularioAlta').css('display', 'none');
+        $('#pgAbonado').css('display', 'block');
     }
 
     $(document).ready(function () {
-        // Manejar el envío del formulario
         $('#formularioAbonado').submit(function (event) {
-            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+            event.preventDefault();
 
-            // Obtener los valores de los campos del formulario
             var nombre = $('#nombre').val();
             var apellido = $('#apellido').val();
             var telefono = $('#telefono').val();
 
-            // Crear el objeto de abonado
             var abonado = {
                 AbonadoNombre: nombre,
                 AbonadoApellido: apellido,
                 AbonadoTelefono: telefono
             };
 
-            // Enviar los datos al servidor
             $.ajax({
                 type: 'POST',
-                url: '/api/abonados',
+                url: 'https://localhost:7074/api/Abonados',
                 data: JSON.stringify(abonado),
                 contentType: 'application/json',
                 success: function (response) {
                     alert('¡Te has dado de alta como abonado exitosamente!');
-                    $('#formularioAbonado')[0].reset(); // Limpiar el formulario
-                    $('#formularioAlta').css('display', 'none'); // Ocultar el formulario
+                    $('#formularioAbonado')[0].reset();
+                    $('#formularioAlta').css('display', 'none');
                 },
                 error: function () {
                     alert('Error al darse de alta como abonado. Por favor, inténtalo de nuevo más tarde.');
@@ -188,5 +185,4 @@
             });
         });
     });
-
 </script>
