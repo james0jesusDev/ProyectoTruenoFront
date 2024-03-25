@@ -18,3 +18,79 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.jumbotron {
+    background-color: #f8f9fa;
+    padding: 2rem 1rem;
+}
+
+    .jumbotron h1 {
+        color: #007bff;
+    }
+
+    .jumbotron p {
+        color: #6c757d;
+    }
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.card-body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #343a40
+}
+
+.imagen-jugador {
+    width: 200px; /* Tamaño deseado para la imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #007bff;
+}
+
+th {
+    color: #6c757d;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }

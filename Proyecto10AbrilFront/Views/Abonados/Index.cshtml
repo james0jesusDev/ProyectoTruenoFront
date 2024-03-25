@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Abonados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos para el fondo */
+        body {
+            background-color: #f8f9fa;
+            background-image: url('../../images/estadio.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos para el contenedor principal */
+        .container {
+            padding: 5px;
+            text-align: center;
+        }
+
+        p {
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* Estilos para los botones de acción */
+        .action-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+            .action-btn:hover {
+                transform: scale(1.1);
+                filter: brightness(1.2);
+            }
+
+        /* Estilos para el texto de los botones */
+        .btn-label {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Estilos para el fondo del formulario */
+        .form-bg {
+            background-color: rgba(239, 156, 86, 0.5);
+        }
+
+        .imagen-abonado {
+            width: 200px; /* Tamaño deseado para la imagen */
+            height: auto; /* Altura automática para mantener la proporción */
+        }
+
+        .content-container {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para resaltar el texto */
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="pgAbonado">
+        <h1>Bienvenido a la Página de Abonados</h1>
+        <div class="row justify-content-center mt-5">
+            <!-- Botón para dar de alta -->
+            <div class="col-md-4 mb-4">
+                <button class="action-btn" onclick="darseAlta()">
+                    <img src="~/images/abono.jpg" alt="Dar de alta" width="300" height="300">
+                </button>
+                <div class="btn-label">Darse de alta</div>
+            </div>
+
+            <!-- Botón para ver la tienda de productos -->
+            <div class="col-md-4 mb-4">
+                <button class="action-btn" onclick="alert('¡Bienvenido a la tienda de productos!')">
+                    <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
+                </button>
+                <div class="btn-label">Tienda de productos</div>
+            </div>
+
+            <!-- Botón para dar de baja -->
+            <div class="col-md-4 mb-4">
+                <button class="action-btn" onclick="darseBaja()">
+                    <img src="~/images/abonoCancel.jpg" alt="Dar de baja" width="300" height="300">
+                </button>
+                <div class="btn-label">Darse de baja</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="formularioAlta" style="display: none;" class="container form-bg">
+        <h2>Formulario de Alta de Abonado</h2>
+        <form>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @*<label for="nombre" class="text-center">Nombre:</label>*@
+                        <input type="text" class="form-control text-center" id="nombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        @*<label for="apellido">Apellido:</label>*@
+                        <input type="text" class="form-control text-center" id="apellido" placeholder="Apellido" required>
+                    </div>
+                    <div class="form-group">
+                        @*<label for="telefono">Teléfono:</label>*@
+                        <input type="text" class="form-control text-center" id="telefono" placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" onclick="enviarAlta()">Enviar</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelarAlta()">Cancelar</button>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <img id="abonoImagen" class="img-thumbnail imagen-abonado" src="~/images/abono.jpg" alt="Imagen de Abono">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container content-container">
+        <h2>Ventajas de ser abonado</h2>
+        <p>Al ser abonado, disfrutas de una serie de beneficios exclusivos:</p>
+        <p>Productos más baratos en la tienda del club</p>
+        <p>Entradas con descuento para los partidos</p>
+        <p>Facilidades para asistir a los entrenamientos del equipo de forma gratuita</p>
+        <p>Oportunidades para conocer a los jugadores en eventos especiales</p>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    function darseAlta() {
+        $('#pgAbonado').css('display', 'none'); // Mostrar el formulario de alta
+        $('#formularioAlta').css('display', 'block'); // Mostrar el formulario de alta
+    }
+
+    function cancelarAlta() {
+        $('#formularioAlta').css('display', 'none'); // Ocultar el formulario de alta
+        $('#pgAbonado').css('display', 'block'); // Mostrar el formulario de alta
+
+    }
+
+    $(document).ready(function () {
+        // Manejar el envío del formulario
+        $('#formularioAbonado').submit(function (event) {
+            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+
+            // Obtener los valores de los campos del formulario
+            var nombre = $('#nombre').val();
+            var apellido = $('#apellido').val();
+            var telefono = $('#telefono').val();
+
+            // Crear el objeto de abonado
+            var abonado = {
+                AbonadoNombre: nombre,
+                AbonadoApellido: apellido,
+                AbonadoTelefono: telefono
+            };
+
+            // Enviar los datos al servidor
+            $.ajax({
+                type: 'POST',
+                url: '/api/abonados',
+                data: JSON.stringify(abonado),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('¡Te has dado de alta como abonado exitosamente!');
+                    $('#formularioAbonado')[0].reset(); // Limpiar el formulario
+                    $('#formularioAlta').css('display', 'none'); // Ocultar el formulario
+                },
+                error: function () {
+                    alert('Error al darse de alta como abonado. Por favor, inténtalo de nuevo más tarde.');
+                }
+            });
+        });
+    });
+
+</script>

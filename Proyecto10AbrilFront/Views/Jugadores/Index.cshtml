@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jugadores</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="listaJugadores" class="container">
+        <h2>Lista de Jugadores</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Sueldo</th>
+                    <th>Lesionado</th>
+                    <th>Usuario</th>
+                    @*<th>Acciones</th>*@
+                </tr>
+            </thead>
+            <tbody id="tableBodyJugadores">
+                <!-- Aquí se agregarán las filas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(function () {
+        CargarDatosJugador();
+    });
+
+    function CargarDatosJugador() {
+        $("#listaJugadores").css("display", "");
+        /*$("#editado").css("display", "none");*/
+
+        $.ajax({
+            type: "GET",
+            url: "https://localhost:7074/api/Jugadores/",
+            success: function (data) {
+                $('#tableBodyJugadores').empty();
+                data.forEach(function (item) {
+                    var row = '<tr>' +
+                        '<td>' + item.jugadorId + '</td>' +
+                        '<td>' + item.jugadorApellido + '</td>' +
+                        '<td>' + item.jugadorNombre + '</td>' +
+                        '<td>' + item.jugadorSueldo + '</td>' +
+                        '<td>' + (item.lesionado === 0 ? 'Sí' : (item.lesionado === 1 ? 'No' : 'En Pruebas')) + '</td>' +
+                        '<td>' + item.jugadorUser + '</td>' +
+                        '<td><img src="' + item.imageUrl + '" class="img-thumbnail" alt="Imagen del Jugador"></td>' +
+                        '</tr>';
+                    $('#tableBodyJugadores').append(row);
+                });
+            }
+        });
+    }
+</script>

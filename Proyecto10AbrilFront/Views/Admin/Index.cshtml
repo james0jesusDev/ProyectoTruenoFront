@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Abonados - Inicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        /* Estilos adicionales para la página de inicio  al final añadidos mediante enlace con el site.css*/
+        /*.jumbotron {
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+        }
+
+            .jumbotron h1 {
+                color: #007bff;
+            }
+
+            .jumbotron p {
+                color: #6c757d;
+            }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #343a40
+        }*/
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Admin/Index">Inicio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AbonadosAdmin", "Abonados")">Abonados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Economía</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">¡Bienvenido a la Administración!</h1>
+            <p class="lead">Aquí puedes gestionar todos los aspectos relacionados con los abonados, jugadores, productos y la economía del proyecto.</p>
+            <hr class="my-4">
+            <p>¡Explora las diferentes secciones usando el menú de navegación!</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Abonados</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra los abonados del proyecto.</p>
+                        <a href="@Url.Action("AbonadosAdmin", "Abonados")" class="btn btn-primary">Ir a Abonados</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Jugadores</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra los jugadores del proyecto.</p>
+                        <a href="@Url.Action("JugadoresAdmin", "Jugadores")" class="btn btn-primary">Ir a Jugadores</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Productos</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra los productos del proyecto.</p>
+                        <a href="#" class="btn btn-primary">Ir a Productos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

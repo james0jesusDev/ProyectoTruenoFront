@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Abonados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Estilos adicionales */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #343a40
+        }
+
+        /*.container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }*/
+
+        h2 {
+            color: #007bff;
+        }
+
+        th {
+            color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Admin/Index">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Abonados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Economía</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <!-- Lista de Abonados -->
+        <div id="listaAbonados" class="container">
+            <h2>Lista de Abonados</h2>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Precio</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBodyAbonados">
+                    <!-- Aquí se mostrarán las filas de abonados -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="editado" style="display: none;" class="container">
+        <h2>Editar Abonado</h2>
+        <form>
+            <input type="hidden" id="editAbonadoId" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editAbonadoNombre">Nombre:</label>
+                        <input type="text" class="form-control" id="editAbonadoNombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editAbonadoApellido">Apellido:</label>
+                        <input type="text" class="form-control" id="editAbonadoApellido" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editAbonadoPrecio">Tarifa:</label>
+                        <input type="text" class="form-control" id="editAbonadoPrecio" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editAbonadoTelefono">Teléfono:</label>
+                        <input type="text" class="form-control" id="editAbonadoTelefono" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editAbonadoUser">Usuario:</label>
+                        <input type="text" class="form-control" id="editAbonadoUser" readonly />
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicionAbonados()">Cancelar</button>
+                    @*<button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">Cancelar</button>*@
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            cargarListaAbonados();
+        });
+
+        function cargarListaAbonados() {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Abonados/",
+                success: function (data) {
+                    $('#tableBodyAbonados').empty();
+                    data.forEach(function (item) {
+                        var row = '<tr>' +
+                            '<td>' + item.abonadoId + '</td>' +
+                            '<td>' + item.abonadoNombre + '</td>' +
+                            '<td>' + item.abonadoApellido + '</td>' +
+                            '<td>' + item.abonadoTelefono + '</td>' +
+                            '<td>' + item.precio + '</td>' +
+                            '<td>' + item.abonadoUser + '</td>' +
+                            '<td><button class="btn btn-warning" onclick="editarAbonado(' + item.abonadoId + ')">Editar</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="eliminarAbonado(' + item.abonadoId + ')">Eliminar</button></td>' +
+                            '</tr>';
+                        $('#tableBodyAbonados').append(row);
+                    });
+                }
+            });
+        }
+
+        function editarAbonado(id) {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Abonados/" + id,
+                success: function (data) {
+                    $('#editAbonadoId').val(data.abonadoId);
+                    $('#editAbonadoNombre').val(data.abonadoNombre);
+                    $('#editAbonadoApellido').val(data.abonadoApellido);
+                    $('#editAbonadoTelefono').val(data.abonadoTelefono);
+                    $('#editAbonadoPrecio').val(data.precio);
+                    $('#editAbonadoUser').val(data.abonadoUser);
+
+                    // Ocultar la tabla de abonados
+                    $('#listaAbonados').hide();
+
+                    // Mostrar el formulario de edición
+                    $('#editado').show();
+                }
+            });
+        }
+
+        function guardarEdicion() {
+            var id = $('#editAbonadoId').val();
+            var nombre = $('#editAbonadoNombre').val();
+            var apellido = $('#editAbonadoApellido').val();
+            var telefono = $('#editAbonadoTelefono').val();
+            var precio = $('#editAbonadoPrecio').val();
+            var user = $('#editAbonadoUser').val();
+
+            var abonado = {
+                abonadoId: id,
+                abonadoNombre: nombre,
+                abonadoApellido: apellido,
+                abonadoTelefono: telefono,
+                precio: precio,
+                abonadoUser: user
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "https://localhost:7074/api/Abonados/" + abonado.abonadoId,
+                data: JSON.stringify(abonado),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (response) {
+                    alert('Abonado actualizado correctamente.');
+
+                    // Limpiar la tabla antes de cargar los datos actualizados
+                    $('#tableBodyAbonados').empty();
+
+                    // Recargar los datos en la tabla
+                    cargarListaAbonados();
+
+                    // Ocultar el formulario de edición y mostrar la lista
+                    $("#editado").hide();
+                    $("#listaAbonados").show();
+                },
+                error: function () {
+                    alert('Error al actualizar el abonado.');
+                }
+            });
+        }
+
+        function cancelarEdicionAbonados() {
+            /*alert("Test");*/
+            console.log("Cancelando edición...");
+            $("#editado").hide();
+            console.log("Mostrando lista de abonados...");
+            $("#listaAbonados").show();
+        }
+
+        //function cancelarEdicion() {
+        //    alert("Probando");
+        //    console.log("Cancelando edición...");
+        //    $("#editado").hide();
+        //    console.log("Mostrando lista de abonados...");
+        //    $("#listaAbonados").show();
+        //}
+
+        function eliminarAbonado(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "https://localhost:7074/api/Abonados/" + id,
+                success: function (data) {
+                    cargarListaAbonados();
+                },
+                error: function () {
+                    alert('Error al borrar el abonado.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
