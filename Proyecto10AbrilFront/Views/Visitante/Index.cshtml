@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos para el fondo */
+        body {
+            background-color: #f8f9fa;
+            background-image: url('../../images/estadio.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos para el contenedor principal */
+        .container {
+            padding: 5px;
+            text-align: center;
+        }
+
+        p {
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* Estilos para los botones de acción */
+        .action-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+            .action-btn:hover {
+                transform: scale(1.1);
+                filter: brightness(1.2);
+            }
+
+        /* Estilos para el texto de los botones */
+        .btn-label {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Estilos para el fondo del formulario */
+        .form-bg {
+            background-color: rgba(239, 156, 86, 0.5);
+        }
+
+        .imagen-abonado {
+            width: 200px; /* Tamaño deseado para la imagen */
+            height: auto; /* Altura automática para mantener la proporción */
+        }
+
+        .content-container {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para resaltar el texto */
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="pgAbonado">
+        <h1>Productos</h1>
+        <div class="row justify-content-center mt-5">
+
+
+           
+            <div class="col-md-4 mb-4">
+                <button class="action-btn" onclick="window.location.href='/Visitante/ProductosEquipaciones'">
+                    <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
+                </button>
+                <div class="btn-label">Equipaciones</div>
+            </div>
+
+
+            
+            <div class="col-md-4 mb-4">
+                <button class="action-btn" onclick="window.location.href='/Visitante/ProductosEntrenamiento'">
+                    <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
+                </button>
+                <div class="btn-label">Entrenamiento</div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="container content-container">
+        <h2>Ventajas de ser abonado</h2>
+        <p>Al ser abonado, disfrutas de una serie de beneficios exclusivos:</p>
+        <p>Productos más baratos en la tienda del club</p>
+        <p>Entradas con descuento para los partidos</p>
+        <p>Facilidades para asistir a los entrenamientos del equipo de forma gratuita</p>
+        <p>Oportunidades para conocer a los jugadores en eventos especiales</p>
+        <button type="button" class="btn btn-secondary" onclick="abonadoWeb()">Ser Socio</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+<script>
+
+
+    function abonadoWeb() {
+        window.location.href = "/Abonados";
+    }
+
+
+
+
+</script>
