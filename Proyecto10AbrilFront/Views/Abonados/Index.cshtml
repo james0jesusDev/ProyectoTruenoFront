@@ -114,6 +114,9 @@
                         <input type="text" class="form-control text-center" id="telefono" placeholder="Teléfono" required>
                     </div>
                     <div class="form-group">
+                        <input type="text" class="form-control text-center" id="precio" placeholder="Precio a aportar" required>
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                         <button type="button" class="btn btn-secondary" onclick="cancelarAlta()">Cancelar</button>
                     </div>
@@ -144,7 +147,7 @@
 
 <script>
 
-    //Cambios James  Funciona el crear abonados 
+    //Cambios James  Funciona el crear abonados
     function darseAlta() {
         $('#pgAbonado').css('display', 'none');
         $('#formularioAlta').css('display', 'block');
@@ -162,11 +165,13 @@
             var nombre = $('#nombre').val();
             var apellido = $('#apellido').val();
             var telefono = $('#telefono').val();
+            var precio = $('#precio').val();
 
             var abonado = {
                 AbonadoNombre: nombre,
                 AbonadoApellido: apellido,
-                AbonadoTelefono: telefono
+                AbonadoTelefono: telefono,
+                Precio: precio
             };
 
             $.ajax({
@@ -178,6 +183,7 @@
                     alert('¡Te has dado de alta como abonado exitosamente!');
                     $('#formularioAbonado')[0].reset();
                     $('#formularioAlta').css('display', 'none');
+                    $('#pgAbonado').css('display', 'block');
                 },
                 error: function () {
                     alert('Error al darse de alta como abonado. Por favor, inténtalo de nuevo más tarde.');
