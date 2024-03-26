@@ -9,6 +9,7 @@ namespace Proyecto10AbrilFront.Controllers
     public class JugadoresController : Controller
     {
         // GET: Jugadores
+        [Authorize(Roles = "Jugador")]
         public ActionResult Index()
         {
             return View();
