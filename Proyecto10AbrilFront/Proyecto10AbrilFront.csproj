@@ -284,6 +284,7 @@
     <Content Include="Views\Visitante\Index.cshtml" />
     <Content Include="Views\Visitante\ProductosEquipaciones.cshtml" />
     <Content Include="Views\Visitante\ProductosEntrenamiento.cshtml" />
+    <Content Include="Views\Visitante\ProductosTotal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

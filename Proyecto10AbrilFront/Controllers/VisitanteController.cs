@@ -28,5 +28,10 @@ namespace Proyecto10AbrilFront.Controllers
             return View();
         }
 
+        public ActionResult ProductosTotal()
+        {
+            return View();
+        }
+
     }
 }

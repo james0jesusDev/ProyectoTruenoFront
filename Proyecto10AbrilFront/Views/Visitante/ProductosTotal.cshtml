@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Abonados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Estilos adicionales */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #343a40
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        th {
+            color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Admin/Index">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AbonadosAdmin", "Abonados")">Abonados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ProductosTotal","Visitante")">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Economía</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <!-- Lista de Abonados -->
+
+        <!-- Lista de Productos -->
+        <div id="listaProductos" class="container">
+            <h2>Lista de Productos</h2>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBodyProductos">
+                    <!-- Aquí se mostrarán las filas de productos -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            
+            cargarListaProductos();
+        });
+
+        
+
+        function cargarListaProductos() {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Productos/",
+                success: function (data) {
+                    $('#tableBodyProductos').empty();
+                    data.forEach(function (producto) {
+                        var row = '<tr>' +
+                            '<td>' + producto.productoId + '</td>' +
+                            '<td>' + producto.productoNombre + '</td>' +
+                            '<td>' + producto.productoPrecio + '</td>' +
+                            '</tr>';
+                        $('#tableBodyProductos').append(row);
+                    });
+                }
+            });
+        }
+
+        // Las demás funciones (editarAbonado, guardarEdicion, cancelarEdicionAbonados, eliminarAbonado) pueden mantenerse igual
+    </script>
+</body>
+</html>
