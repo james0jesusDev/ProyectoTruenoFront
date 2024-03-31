@@ -87,8 +87,6 @@
 
     <!-- Contenido principal -->
     <div class="container mt-5">
-        <!-- Lista de Abonados -->
-
         <!-- Lista de Productos -->
         <div id="listaProductos" class="container">
             <h2>Lista de Productos</h2>
@@ -98,6 +96,7 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Precio</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tableBodyProductos">
@@ -107,16 +106,35 @@
         </div>
     </div>
 
+    <!-- Formulario de edición de producto -->
+    <div id="editadoProducto" style="display: none;" class="container">
+        <h2>Editar Producto</h2>
+        <form>
+            <input type="hidden" id="editProductoId" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editProductoNombre">Nombre:</label>
+                        <input type="text" class="form-control" id="editProductoNombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductoPrecio">Precio:</label>
+                        <input type="text" class="form-control" id="editProductoPrecio" />
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="guardarEdicionProducto()">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicionProducto()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            
             cargarListaProductos();
         });
-
-        
 
         function cargarListaProductos() {
             $.ajax({
@@ -125,10 +143,13 @@
                 success: function (data) {
                     $('#tableBodyProductos').empty();
                     data.forEach(function (producto) {
+                        var precioConEuro = producto.productoPrecio + ' €'; // Agregar el símbolo del euro al precio
                         var row = '<tr>' +
                             '<td>' + producto.productoId + '</td>' +
                             '<td>' + producto.productoNombre + '</td>' +
-                            '<td>' + producto.productoPrecio + '</td>' +
+                            '<td>' + precioConEuro + '</td>' + // Mostrar el precio con el símbolo del euro
+                            '<td><button class="btn btn-warning" onclick="editarProducto(' + producto.productoId + ')">Editar</button> ' +
+                            '<button class="btn btn-danger" onclick="eliminarProducto(' + producto.productoId + ')">Eliminar</button></td>' +
                             '</tr>';
                         $('#tableBodyProductos').append(row);
                     });
@@ -136,7 +157,78 @@
             });
         }
 
-        // Las demás funciones (editarAbonado, guardarEdicion, cancelarEdicionAbonados, eliminarAbonado) pueden mantenerse igual
+        function editarProducto(id) {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Productos/" + id,
+                success: function (data) {
+                    $('#editProductoId').val(data.productoId);
+                    $('#editProductoNombre').val(data.productoNombre);
+                    $('#editProductoPrecio').val(data.productoPrecio);
+
+                    // Ocultar la tabla de productos
+                    $('#listaProductos').hide();
+
+                    // Mostrar el formulario de edición
+                    $('#editadoProducto').show();
+                }
+            });
+        }
+
+        function guardarEdicionProducto() {
+            var id = $('#editProductoId').val();
+            var nombre = $('#editProductoNombre').val();
+            var precio = $('#editProductoPrecio').val();
+
+            var producto = {
+                productoId: id,
+                productoNombre: nombre,
+                productoPrecio: precio
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "https://localhost:7074/api/Productos/" + producto.productoId,
+                data: JSON.stringify(producto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (response) {
+                    alert('Producto actualizado correctamente.');
+
+                    // Limpiar la tabla antes de cargar los datos actualizados
+                    $('#tableBodyProductos').empty();
+
+                    // Recargar los datos en la tabla
+                    cargarListaProductos();
+
+                    // Ocultar el formulario de edición y mostrar la lista
+                    $("#editadoProducto").hide();
+                    $("#listaProductos").show();
+                },
+                error: function () {
+                    alert('Error al actualizar el producto.');
+                }
+            });
+        }
+
+        function cancelarEdicionProducto() {
+            $("#editadoProducto").hide();
+            $("#listaProductos").show();
+        }
+
+        function eliminarProducto(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "https://localhost:7074/api/Productos/" + id,
+                success: function (data) {
+                    cargarListaProductos();
+                },
+                error: function () {
+                    alert('Error al borrar el producto.');
+                }
+            });
+        }
     </script>
+
 </body>
 </html>
