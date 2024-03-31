@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Proyecto10AbrilFront.Controllers
 {
+    [Authorize(Roles = "Jugador")]
     public class JugadoresController : Controller
     {
         // GET: Jugadores
@@ -14,6 +15,7 @@ namespace Proyecto10AbrilFront.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Jugador")]
         public ActionResult JugadoresAdmin()
         {
             return View();

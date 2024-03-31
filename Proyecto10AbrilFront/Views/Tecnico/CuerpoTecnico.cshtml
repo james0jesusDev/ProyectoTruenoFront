@@ -1,7 +1,171 @@
-﻿
-@{
-    ViewBag.Title = "CuerpoTecnico";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cuerpo Técnico</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="@Url.Action("", "Tecnico")">Entrenador</a>
+        </nav>
+    </header>
+    @* No logro que el editar funcione en principio lo quito 
+        
+        REVISAR
 
-<h2>CuerpoTecnico</h2>
 
+
+        
+        *@
+    <div id="lista" class="container">
+        <h2>Administra tu Cuerpo Técnico</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Sueldo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Aquí se agregarán las filas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="editado" style="display: none;" class="container">
+        <h2>Editar Miembro del Cuerpo Técnico</h2>
+        <form>
+            <input type="hidden" id="editCuerpoTecnicoId" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editCuerpoTecnicoNombre">Nombre:</label>
+                        <input type="text" class="form-control" id="editCuerpoTecnicoNombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editCuerpoTecnicoApellido">Apellido:</label>
+                        <input type="text" class="form-control" id="editCuerpoTecnicoApellido" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editCuerpoTecnicoSueldo">Sueldo:</label>
+                        <input type="text" class="form-control" id="editCuerpoTecnicoSueldo" />
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="GuardarCuerpoTecnico()">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicionCuerpoTecnico()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            getData();
+        });
+
+        function getData() {
+            $("#lista").css("display", "");
+            $("#editado").css("display", "none");
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/CuerpoTecnicoes/",
+                success: function (data) {
+                    $('#tableBody').empty();
+                    data.forEach(function (item) {
+                        var row = '<tr>' +
+                            '<td>' + item.cuerpoTecnicoId + '</td>' +
+                            '<td>' + item.cuerpoTecnicoNombre + '</td>' +
+                            '<td>' + item.cuerpoTecnicoApellido + '</td>' +
+                            '<td>' + item.cuerpoTecnicoSueldo + '</td>' +
+                            '<td><button class="btn btn-warning" onclick="editarCuerpoTecnico(' + item.cuerpoTecnicoId + ')">Editar</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="borrarCuerpoTecnico(' + item.cuerpoTecnicoId + ')">Eliminar</button></td>' +
+                            '</tr>';
+                        $('#tableBody').append(row);
+                    });
+                }
+            });
+        }
+
+        function borrarCuerpoTecnico(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "https://localhost:7074/api/CuerpoTecnicoes/" + id,
+                success: function (data) {
+                    getData();
+                },
+                error: function () {
+                    alert('Error al eliminar el miembro del cuerpo técnico.');
+                }
+            });
+        }
+
+        function cancelarEdicionCuerpoTecnico() {
+            $("#editado").css("display", "none");
+            $("#lista").css("display", "");
+        }
+
+        function editarCuerpoTecnico(id) {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/CuerpoTecnicoes/" + id,
+                success: function (data) {
+                    $('#editCuerpoTecnicoId').val(data.cuerpoTecnicoId);
+                    $('#editCuerpoTecnicoNombre').val(data.cuerpoTecnicoNombre);
+                    $('#editCuerpoTecnicoApellido').val(data.cuerpoTecnicoApellido);
+                    $('#editCuerpoTecnicoSueldo').val(data.cuerpoTecnicoSueldo);
+
+                    $("#lista").css("display", "none");
+                    $('#editado').css("display", "");
+                }
+            });
+        }
+
+        function GuardarCuerpoTecnico() {
+            var id = $('#editCuerpoTecnicoId').val();
+            var nombre = $('#editCuerpoTecnicoNombre').val();
+            var apellido = $('#editCuerpoTecnicoApellido').val();
+            var sueldo = $('#editCuerpoTecnicoSueldo').val();
+
+            var cuerpoTecnico = {
+                cuerpoTecnicoId: id,
+                cuerpoTecnicoNombre: nombre,
+                cuerpoTecnicoApellido: apellido,
+                cuerpoTecnicoSueldo: sueldo
+            };
+
+            $.ajax({
+                type: id ? "PUT" : "POST",
+                url: id ? "https://localhost:7074/api/CuerpoTecnicoes/" + id : "https://localhost:7074/api/CuerpoTecnicoes/",
+                data: JSON.stringify(cuerpoTecnico),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (response) {
+                    alert(id ? 'Miembro del cuerpo técnico actualizado correctamente.' : 'Miembro del cuerpo técnico creado correctamente.');
+
+                    // Limpiar la tabla antes de cargar los datos actualizados
+                    $('#tableBody').empty();
+
+                    // Recargar los datos en la tabla
+                    getData();
+
+                    // Ocultar el formulario de edición y mostrar la lista
+                    $("#editado").css("display", "none");
+                    $("#lista").css("display", "");
+                },
+                error: function () {
+                    alert(id ? 'Error al actualizar el miembro del cuerpo técnico.' : 'Error al crear el miembro del cuerpo técnico.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
