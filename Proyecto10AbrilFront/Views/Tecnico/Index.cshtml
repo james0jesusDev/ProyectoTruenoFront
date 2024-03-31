@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Abonados - Inicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+       
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+   
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">¡Bienvenido  Entrenador !</h1>
+            <p class="lead">Aquí puedes gestionar todos los aspectos relacionados con los  jugadores,  y cuerpo tecnico .</p>
+            <hr class="my-4">
+            <p>¡Explora las diferentes secciones usando el menú de navegación!</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Jugadores</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra los jugadores  del equipo.</p>
+                        <a href="@Url.Action("JugadoresTecnico", "Tecnico")" class="btn btn-primary">Ir a Jugadores</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Cuerpo Tecnico</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra el cuerpo tecnico del equipo.</p>
+                        <a href="@Url.Action("CuerpoTecnico", "Tecnico")" class="btn btn-primary">Ir a Cuerpo Técnico</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

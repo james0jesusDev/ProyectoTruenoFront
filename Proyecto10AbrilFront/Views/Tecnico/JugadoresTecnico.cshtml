@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jugadores</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Admin/Index">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AbonadosAdmin", "Abonados")">Abonados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ProductosTotal","Visitante")">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Economía</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="lista" class="container">
+        <h2>Administra tus Jugadores</h2>
+        <div class="btn-group" role="group" aria-label="Filtros">
+            <button type="button" class="btn btn-primary" onclick="filtrarJugadores('todos')">Todos</button>
+            <button type="button" class="btn btn-primary" onclick="filtrarJugadores('lesionados')">Lesionados</button>
+            <button type="button" class="btn btn-primary" onclick="filtrarJugadores('disponibles')">Disponibles</button>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Sueldo</th>
+                    <th>Lesionado</th>
+                    <th>Usuario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Aquí se agregarán las filas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="editado" style="display: none;" class="container">
+        <h2>Editar Jugador</h2>
+        <form>
+            <input type="hidden" id="editJugadorId" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editJugadorNombre">Nombre:</label>
+                        <input type="text" class="form-control" id="editJugadorNombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editJugadorApellido">Apellido:</label>
+                        <input type="text" class="form-control" id="editJugadorApellido" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editJugadorSueldo">Sueldo:</label>
+                        <input type="text" class="form-control" id="editJugadorSueldo" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editJugadorLesionado">Lesionado:</label>
+                        <select class="form-control" id="editJugadorLesionado">
+                            <option value="0">Sí</option>
+                            <option value="1">No</option>
+                            <option value="2">En Pruebas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editJugadorUser">Usuario:</label>
+                        <input type="text" class="form-control" id="editJugadorUser" readonly />
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">Cancelar</button>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editJugadorImg">Imagen:</label>
+                        <img id="editImagenJugador" class="img-thumbnail imagen-jugador" src="" alt="Imagen del Jugador">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            getData();
+        });
+
+        function getData() {
+            $("#lista").css("display", "");
+            $("#editado").css("display", "none");
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Jugadores/",
+                success: function (data) {
+                    $('#tableBody').empty();
+                    data.forEach(function (item) {
+                        var row = '<tr>' +
+                            '<td>' + item.jugadorId + '</td>' +
+                            '<td>' + item.jugadorApellido + '</td>' +
+                            '<td>' + item.jugadorNombre + '</td>' +
+                            '<td>' + item.jugadorSueldo + '</td>' +
+                            '<td>' + (item.lesionado === 0 ? 'Sí' : (item.lesionado === 1 ? 'No' : 'En Pruebas')) + '</td>' +
+                            '<td>' + item.jugadorUser + '</td>' +
+                            '<td><img src="' + item.imageUrl + '" class="img-thumbnail" alt="Imagen del Jugador"></td>' +
+                            '<td><button class="btn btn-warning" onclick="editarJugador(' + item.jugadorId + ')">Editar</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="borrarJugador(' + item.jugadorId + ')">Echar</button></td>' +
+                            '</tr>';
+                        $('#tableBody').append(row);
+                    });
+                }
+            });
+        }
+
+        function borrarJugador(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "https://localhost:7074/api/Jugadores/" + id,
+                success: function (data) {
+                    getData();
+                },
+                error: function () {
+                    alert('Error al borrar el jugador.');
+                }
+            });
+        }
+
+        function cancelarEdicion() {
+            $("#editado").css("display", "none");
+            $("#lista").css("display", "");
+        }
+
+        function editarJugador(id) {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Jugadores/" + id,
+                success: function (data) {
+                    $('#editJugadorId').val(data.jugadorId);
+                    $('#editJugadorNombre').val(data.jugadorNombre);
+                    $('#editJugadorApellido').val(data.jugadorApellido);
+                    $('#editJugadorSueldo').val(data.jugadorSueldo);
+                    $('#editJugadorLesionado').val(data.lesionado.toString());
+                    $('#editJugadorUser').val(data.jugadorUser);
+                    // Corregir la URL de la imagen para que apunte al backend adecuado
+                    var imageUrl = data.imageUrl.startsWith('http') ? data.imageUrl : 'https://localhost:7074/images/' + data.imageUrl;
+                    $('#editImagenJugador').attr('src', imageUrl);
+                    $('#editJugadorImg').val(data.imageUrl);
+
+                    $("#lista").css("display", "none");
+                    $('#editado').css("display", "");
+                }
+            });
+        }
+
+        function Guardar() {
+            var id = $('#editJugadorId').val();
+            var nombre = $('#editJugadorNombre').val();
+            var apellido = $('#editJugadorApellido').val();
+            var sueldo = $('#editJugadorSueldo').val();
+            var lesionado = $('#editJugadorLesionado').val() === '0' ? 0 : ($('#editJugadorLesionado').val() === '1' ? 1 : 2);
+
+            // Obtener la URL de la imagen del atributo src del elemento de imagen
+            var imagenUrl = $('#editImagenJugador').attr('src');
+
+            // Extraer el nombre del archivo de la URL de la imagen
+            var imageName = imagenUrl.substring(imagenUrl.lastIndexOf('/') + 1);
+
+            var user = $('#editJugadorUser').val(); // Obtener el valor del campo de usuario
+
+            var jugador = {
+                jugadorId: id,
+                jugadorNombre: nombre,
+                jugadorApellido: apellido,
+                jugadorSueldo: sueldo,
+                lesionado: lesionado,
+                imageUrl: imageName, // Guardar solo el nombre del archivo en la base de datos
+                jugadorUser: user
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "https://localhost:7074/api/Jugadores/" + jugador.jugadorId,
+                data: JSON.stringify(jugador),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (response) {
+                    alert('Jugador actualizado correctamente.');
+
+                    // Limpiar la tabla antes de cargar los datos actualizados
+                    $('#tableBody').empty();
+
+                    // Recargar los datos en la tabla
+                    getData();
+
+                    // Ocultar el formulario de edición y mostrar la lista
+                    $("#editado").css("display", "none");
+                    $("#lista").css("display", "");
+                },
+                error: function () {
+                    alert('Error al actualizar el jugador.');
+                }
+            });
+        }
+
+        function filtrarJugadores(estado) {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7074/api/Jugadores/",
+                success: function (data) {
+                    $('#tableBody').empty();
+                    data.forEach(function (item) {
+                        if (estado === 'todos' ||
+                            (estado === 'lesionados' && item.lesionado === 0) ||
+                            (estado === 'disponibles' && item.lesionado === 1) ||
+                            (estado === 'en_pruebas' && item.lesionado === 2)) {
+                            var row = '<tr>' +
+                                '<td>' + item.jugadorId + '</td>' +
+                                '<td>' + item.jugadorApellido + '</td>' +
+                                '<td>' + item.jugadorNombre + '</td>' +
+                                '<td>' + item.jugadorSueldo + '</td>' +
+                                '<td>' + (item.lesionado === 0 ? 'Sí' : (item.lesionado === 1 ? 'No' : 'En Pruebas')) + '</td>' +
+                                '<td>' + item.jugadorUser + '</td>' +
+                                '<td><img src="' + item.imageUrl + '" class="img-thumbnail" alt="Imagen del Jugador"></td>' +
+                                '<td><button class="btn btn-warning" onclick="editarJugador(' + item.jugadorId + ')">Editar</button></td>' +
+                                '<td><button class="btn btn-danger" onclick="borrarJugador(' + item.jugadorId + ')">Echar</button></td>' +
+                                '</tr>';
+                            $('#tableBody').append(row);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

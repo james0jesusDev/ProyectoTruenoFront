@@ -83,7 +83,8 @@
 
             <!-- Botón para ver la tienda de productos -->
             <div class="col-md-4 mb-4">
-                <button class="action-btn" onclick="alert('¡Bienvenido a la tienda de productos!')">
+                <button class="action-btn">
+                    <a href="@Url.Action("ProductosTotal","Visitante")" class="btn btn-primary"></a>
                     <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
                 </button>
                 <div class="btn-label">Tienda de productos</div>
