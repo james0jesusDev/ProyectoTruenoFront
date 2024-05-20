@@ -32,7 +32,6 @@
                     <th>Sueldo</th>
                     <th>Lesionado</th>
                     <th>Usuario</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -41,7 +40,7 @@
         </table>
     </div>
 
-    <div id="editado" style="display: none;" class="container">
+    @*<div id="editado" style="display: none;" class="container">
         <h2>Editar Jugador</h2>
         <form>
             <input type="hidden" id="editJugadorId" />
@@ -82,16 +81,16 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div>*@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
-            getData();
+            getDataJtecnico();
         });
 
-        function getData() {
+        function getDataJtecnico() {
             $("#lista").css("display", "");
             $("#editado").css("display", "none");
 
@@ -108,9 +107,7 @@
                             '<td>' + item.jugadorSueldo + '</td>' +
                             '<td>' + (item.lesionado === 0 ? 'Sí' : (item.lesionado === 1 ? 'No' : 'En Pruebas')) + '</td>' +
                             '<td>' + item.jugadorUser + '</td>' +
-                            '<td><img src="' + item.imageUrl + '" class="img-thumbnail" alt="Imagen del Jugador"></td>' +
-                            '<td><button class="btn btn-warning" onclick="editarJugador(' + item.jugadorId + ')">Editar</button></td>' +
-                            '<td><button class="btn btn-danger" onclick="borrarJugador(' + item.jugadorId + ')">Echar</button></td>' +
+                            '<td><img src="' + item.imageUrl + '" class="img-thumbnail" alt="Imagen del Jugador"></td>' +                            
                             '</tr>';
                         $('#tableBody').append(row);
                     });
@@ -118,95 +115,95 @@
             });
         }
 
-        function borrarJugador(id) {
-            $.ajax({
-                type: "DELETE",
-                url: "https://localhost:7074/api/Jugadores/" + id,
-                success: function (data) {
-                    getData();
-                },
-                error: function () {
-                    alert('Error al borrar el jugador.');
-                }
-            });
-        }
+        //function borrarJugador(id) {
+        //    $.ajax({
+        //        type: "DELETE",
+        //        url: "https://localhost:7074/api/Jugadores/" + id,
+        //        success: function (data) {
+        //            getData();
+        //        },
+        //        error: function () {
+        //            alert('Error al borrar el jugador.');
+        //        }
+        //    });
+        //}
 
-        function cancelarEdicion() {
-            $("#editado").css("display", "none");
-            $("#lista").css("display", "");
-        }
+        //function cancelarEdicion() {
+        //    $("#editado").css("display", "none");
+        //    $("#lista").css("display", "");
+        //}
 
-        function editarJugador(id) {
-            $.ajax({
-                type: "GET",
-                url: "https://localhost:7074/api/Jugadores/" + id,
-                success: function (data) {
-                    $('#editJugadorId').val(data.jugadorId);
-                    $('#editJugadorNombre').val(data.jugadorNombre);
-                    $('#editJugadorApellido').val(data.jugadorApellido);
-                    $('#editJugadorSueldo').val(data.jugadorSueldo);
-                    $('#editJugadorLesionado').val(data.lesionado.toString());
-                    $('#editJugadorUser').val(data.jugadorUser);
-                    // Corregir la URL de la imagen para que apunte al backend adecuado
-                    var imageUrl = data.imageUrl.startsWith('http') ? data.imageUrl : 'https://localhost:7074/images/' + data.imageUrl;
-                    $('#editImagenJugador').attr('src', imageUrl);
-                    $('#editJugadorImg').val(data.imageUrl);
+        //function editarJugador(id) {
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "https://localhost:7074/api/Jugadores/" + id,
+        //        success: function (data) {
+        //            $('#editJugadorId').val(data.jugadorId);
+        //            $('#editJugadorNombre').val(data.jugadorNombre);
+        //            $('#editJugadorApellido').val(data.jugadorApellido);
+        //            $('#editJugadorSueldo').val(data.jugadorSueldo);
+        //            $('#editJugadorLesionado').val(data.lesionado.toString());
+        //            $('#editJugadorUser').val(data.jugadorUser);
+        //            // Corregir la URL de la imagen para que apunte al backend adecuado
+        //            var imageUrl = data.imageUrl.startsWith('http') ? data.imageUrl : 'https://localhost:7074/images/' + data.imageUrl;
+        //            $('#editImagenJugador').attr('src', imageUrl);
+        //            $('#editJugadorImg').val(data.imageUrl);
 
-                    $("#lista").css("display", "none");
-                    $('#editado').css("display", "");
-                }
-            });
-        }
+        //            $("#lista").css("display", "none");
+        //            $('#editado').css("display", "");
+        //        }
+        //    });
+        //}
 
-        function Guardar() {
-            var id = $('#editJugadorId').val();
-            var nombre = $('#editJugadorNombre').val();
-            var apellido = $('#editJugadorApellido').val();
-            var sueldo = $('#editJugadorSueldo').val();
-            var lesionado = $('#editJugadorLesionado').val() === '0' ? 0 : ($('#editJugadorLesionado').val() === '1' ? 1 : 2);
+        //function Guardar() {
+        //    var id = $('#editJugadorId').val();
+        //    var nombre = $('#editJugadorNombre').val();
+        //    var apellido = $('#editJugadorApellido').val();
+        //    var sueldo = $('#editJugadorSueldo').val();
+        //    var lesionado = $('#editJugadorLesionado').val() === '0' ? 0 : ($('#editJugadorLesionado').val() === '1' ? 1 : 2);
 
-            // Obtener la URL de la imagen del atributo src del elemento de imagen
-            var imagenUrl = $('#editImagenJugador').attr('src');
+        //    // Obtener la URL de la imagen del atributo src del elemento de imagen
+        //    var imagenUrl = $('#editImagenJugador').attr('src');
 
-            // Extraer el nombre del archivo de la URL de la imagen
-            var imageName = imagenUrl.substring(imagenUrl.lastIndexOf('/') + 1);
+        //    // Extraer el nombre del archivo de la URL de la imagen
+        //    var imageName = imagenUrl.substring(imagenUrl.lastIndexOf('/') + 1);
 
-            var user = $('#editJugadorUser').val(); // Obtener el valor del campo de usuario
+        //    var user = $('#editJugadorUser').val(); // Obtener el valor del campo de usuario
 
-            var jugador = {
-                jugadorId: id,
-                jugadorNombre: nombre,
-                jugadorApellido: apellido,
-                jugadorSueldo: sueldo,
-                lesionado: lesionado,
-                imageUrl: imageName, // Guardar solo el nombre del archivo en la base de datos
-                jugadorUser: user
-            };
+        //    var jugador = {
+        //        jugadorId: id,
+        //        jugadorNombre: nombre,
+        //        jugadorApellido: apellido,
+        //        jugadorSueldo: sueldo,
+        //        lesionado: lesionado,
+        //        imageUrl: imageName, // Guardar solo el nombre del archivo en la base de datos
+        //        jugadorUser: user
+        //    };
 
-            $.ajax({
-                type: "PUT",
-                url: "https://localhost:7074/api/Jugadores/" + jugador.jugadorId,
-                data: JSON.stringify(jugador),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (response) {
-                    alert('Jugador actualizado correctamente.');
+        //    $.ajax({
+        //        type: "PUT",
+        //        url: "https://localhost:7074/api/Jugadores/" + jugador.jugadorId,
+        //        data: JSON.stringify(jugador),
+        //        dataType: "json",
+        //        contentType: "application/json;charset=utf-8",
+        //        success: function (response) {
+        //            alert('Jugador actualizado correctamente.');
 
-                    // Limpiar la tabla antes de cargar los datos actualizados
-                    $('#tableBody').empty();
+        //            // Limpiar la tabla antes de cargar los datos actualizados
+        //            $('#tableBody').empty();
 
-                    // Recargar los datos en la tabla
-                    getData();
+        //            // Recargar los datos en la tabla
+        //            getData();
 
-                    // Ocultar el formulario de edición y mostrar la lista
-                    $("#editado").css("display", "none");
-                    $("#lista").css("display", "");
-                },
-                error: function () {
-                    alert('Error al actualizar el jugador.');
-                }
-            });
-        }
+        //            // Ocultar el formulario de edición y mostrar la lista
+        //            $("#editado").css("display", "none");
+        //            $("#lista").css("display", "");
+        //        },
+        //        error: function () {
+        //            alert('Error al actualizar el jugador.');
+        //        }
+        //    });
+        //}
 
         function filtrarJugadores(estado) {
             $.ajax({

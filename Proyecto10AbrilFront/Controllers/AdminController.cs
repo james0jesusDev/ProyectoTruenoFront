@@ -16,5 +16,10 @@ namespace Proyecto10AbrilFront.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
+        public ActionResult CalendarioAdmin()
+        {
+            return View();
+        }
     }
 }

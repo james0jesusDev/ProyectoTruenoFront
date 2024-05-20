@@ -94,3 +94,58 @@ th {
         background-color: #5a6268;
         border-color: #545b62;
     }
+
+/* Estilos de la pelota */
+.bouncingball {
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    background: #CCC;
+    animation: bounce 2s infinite;
+    position: absolute;
+    bottom: -70px; /* Ajusta la posición vertical de la pelota */
+    left: calc(50% - 70px); /* Centra horizontalmente la pelota */
+}
+
+@keyframes bounce {
+    0%, 100% {
+        bottom: -70px; /* Posición inicial y final de la pelota */
+        -webkit-animation-timing-function: ease-in-out;
+    }
+
+    50% {
+        bottom: 70px; /* Punto más alto de la animación */
+        -webkit-animation-timing-function: ease-in-out;
+    }
+}
+#pelota {
+    position: absolute;
+    animation: rebota 1s alternate infinite ease-out;
+}
+
+@-webkit-keyframes rebota {
+    0% {
+        top: 600px;
+        height: 70px;
+    }
+
+    100% {
+        top: 200px;
+    }
+}
+/* Estilos para el footer */
+footer {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0; /* Ajuste el pie de página a la izquierda */
+    width: 100%;
+}
+
+.footer-container {
+    width: 100%; /* Ajustar el ancho del contenedor del pie de página */
+    margin: 0 auto; /* Centrar el contenido del pie de página */
+    max-width: 1140px; /* Ancho máximo del contenedor del pie de página */
+}

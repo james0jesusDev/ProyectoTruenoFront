@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Productos - Trueno FC</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Estilos para el fondo */
@@ -23,12 +23,19 @@
             text-align: center;
         }
 
-        p {
+        /* Estilos para los encabezados h1 y h2 */
+        h1, h2 {
+            color: #ffc107; /* Amarillo Trueno FC */
             font-weight: bold;
+            transition: color 0.3s; /* Transición de color al pasar el cursor */
+            cursor: pointer; /* Cursor de mano al pasar el cursor */
         }
 
-        h2 {
-            color: #007bff;
+            h1:hover, h2:hover {
+                color: #ff0000; /* Cambia el color al pasar el cursor */
+            }
+
+        p {
             font-weight: bold;
         }
 
@@ -49,16 +56,19 @@
         .btn-label {
             font-size: 18px;
             margin-top: 10px;
+            color: #ffc107; /* Amarillo Trueno FC */
         }
 
         /* Estilos para el fondo del formulario */
         .form-bg {
-            background-color: rgba(239, 156, 86, 0.5);
+            background-color: rgba(239, 156, 86, 0.5); /* Fondo semi-transparente naranja */
         }
 
-        .imagen-abonado {
-            width: 200px; /* Tamaño deseado para la imagen */
+        .imagen-producto {
+            width: 100%; /* Tamaño máximo para la imagen */
             height: auto; /* Altura automática para mantener la proporción */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra ligera */
         }
 
         .content-container {
@@ -67,61 +77,62 @@
             border-radius: 8px;
             margin-top: 20px;
         }
+
+        /* Estilos para el botón de ser socio */
+        .btn-socio {
+            background-color: #007bff; /* Azul Trueno FC */
+            border-color: #007bff; /* Borde azul Trueno FC */
+            font-weight: bold;
+        }
+
+            .btn-socio:hover {
+                background-color: #0056b3; /* Azul oscuro al pasar el ratón */
+            }
     </style>
 </head>
 <body>
     <div class="container" id="pgAbonado">
-        <h1>Productos</h1>
+        <h1 onmouseover="changeColor(this)" onmouseout="changeColor(this)">¡Bienvenido a la Tienda de Productos Trueno FC!</h1>
         <div class="row justify-content-center mt-5">
-
-
-           
+            <!-- Botón para ver las equipaciones -->
             <div class="col-md-4 mb-4">
                 <button class="action-btn" onclick="window.location.href='/Visitante/ProductosEquipaciones'">
-                    <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
+                    <img src="~/images/tienda.jpg" alt="Equipaciones" class="imagen-producto">
                 </button>
                 <div class="btn-label">Equipaciones</div>
             </div>
 
-
-            
+            <!-- Botón para ver productos de entrenamiento -->
             <div class="col-md-4 mb-4">
                 <button class="action-btn" onclick="window.location.href='/Visitante/ProductosEntrenamiento'">
-                    <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
+                    <img src="~/images/tienda2.jpeg" alt="Entrenamiento" class="imagen-producto">
                 </button>
                 <div class="btn-label">Entrenamiento</div>
             </div>
-
-
         </div>
     </div>
 
-
     <div class="container content-container">
         <h2>Ventajas de ser abonado</h2>
-        <p>Al ser abonado, disfrutas de una serie de beneficios exclusivos:</p>
+        <p>¡Hazte socio del Trueno FC y disfruta de beneficios exclusivos!</p>
         <p>Productos más baratos en la tienda del club</p>
         <p>Entradas con descuento para los partidos</p>
         <p>Facilidades para asistir a los entrenamientos del equipo de forma gratuita</p>
         <p>Oportunidades para conocer a los jugadores en eventos especiales</p>
-        <button type="button" class="btn btn-secondary" onclick="abonadoWeb()">Ser Socio</button>
+        <button type="button" class="btn btn-secondary btn-socio" onclick="abonadoWeb()">Ser Socio</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        function abonadoWeb() {
+            window.location.href = "/Abonados";
+        }
+
+        function changeColor(element) {
+            element.style.color = "#ff0000"; /* Cambia el color al pasar el cursor */
+        }
+    </script>
 </body>
-
 </html>
-
-<script>
-
-
-    function abonadoWeb() {
-        window.location.href = "/Abonados";
-    }
-
-
-
-
-</script>

@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jugadores</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AbonadosAdmin", "Abonados")">Abonados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ProductosAdmin","Visitante")">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("CalendarioAdmin","Admin")">Calendario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Economía</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Cambiar el título y el encabezado de la tabla -->
+    <div id="listaGastos" class="container">
+        <h2>Administra tus Gastos</h2>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tableBodyGastos">
+                <!-- Aquí se agregarán las filas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="editadoGastos" style="display: none;" class="container">
+        <h2>Editar Gasto</h2>
+        <form>
+            <input type="hidden" id="editGastoId" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editGastoNombre">Nombre:</label>
+                        <input type="text" class="form-control" id="editGastoNombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editAbonadoId">Cantidad:</label>
+                        <input type="text" class="form-control" id="editAbonadoId" />
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="GuardarGasto()">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicionGasto()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(function () {
+        getDataGastos();
+    });
+    function getDataGastos() {
+        $("#listaGastos").css("display", "");
+        $("#editadoGastos").css("display", "none");
+        $.ajax({
+            type: "GET",
+            url: "https://localhost:7074/api/Gastos/",
+            success: function (data) {
+                $('#tableBodyGastos').empty();
+                data.forEach(function (item) {
+                    var row = '<tr>' +
+                        '<td>' + item.gastoId + '</td>' +
+                        '<td>' + item.gastoNombre + '</td>' +
+                        '<td>' + item.cantidad + '€</td>' +
+                        '<td><button class="btn btn-warning" onclick="editarGasto(' + item.gastoId + ')">Editar</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="borrarGasto(' + item.gastoId + ')">Eliminar</button></td>' +
+                        '</tr>';
+                    $('#tableBodyGastos').append(row);
+                });
+            }
+        });
+    }
+
+    function borrarGasto(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "https://localhost:7074/api/Gastos/" + id,
+            success: function (data) {
+                getDataGastos();
+            },
+            error: function () {
+                alert('Error al borrar el gasto.');
+            }
+        });
+    }
+
+    function cancelarEdicionGasto() {
+        $("#editadoGastos").css("display", "none");
+        $("#listaGastos").css("display", "");
+    }
+
+    function editarGasto(id) {
+        $.ajax({
+            type: "GET",
+            url: "https://localhost:7074/api/Gastos/" + id,
+            success: function (data) {
+                $('#editGastoId').val(data.gastoId);
+                $('#editGastoNombre').val(data.gastoNombre);
+                $('#editAbonadoId').val(data.cantidad);
+
+                $("#listaGastos").css("display", "none");
+                $('#editadoGastos').css("display", "");
+            },
+            error: function () {
+                alert('Error al cargar el gasto para edición.');
+            }
+        });
+    }
+
+    function GuardarGasto() {
+        var id = $('#editGastoId').val();
+        var nombre = $('#editGastoNombre').val();
+        var cantidad = $('#editAbonadoId').val();
+
+        var gasto = {
+            GastoId: id,
+            GastoNombre: nombre,
+            Cantidad: cantidad
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "https://localhost:7074/api/Gastos/" + gasto.GastoId,
+            data: JSON.stringify(gasto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                alert('Gasto actualizado correctamente.');
+                $('#tableBodyGastos').empty();
+                getDataGastos();
+                $("#editadoGastos").css("display", "none");
+                $("#listaGastos").css("display", "");
+            },
+            error: function () {
+                alert('Error al actualizar el gasto.');
+            }
+        });
+    }
+
+
+</script>

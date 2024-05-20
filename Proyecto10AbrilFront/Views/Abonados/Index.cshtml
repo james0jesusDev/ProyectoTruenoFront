@@ -83,19 +83,18 @@
 
             <!-- Botón para ver la tienda de productos -->
             <div class="col-md-4 mb-4">
-                <button class="action-btn">
-                    <a href="@Url.Action("ProductosTotal","Visitante")" class="btn btn-primary"></a>
+                <button class="action-btn" onclick="window.location.href='/Visitante/Index'">
                     <img src="~/images/tienda.jpg" alt="Tienda de productos" width="300" height="300">
                 </button>
                 <div class="btn-label">Tienda de productos</div>
             </div>
 
-            <!-- Botón para dar de baja -->
+            <!-- Ver Calendario -->
             <div class="col-md-4 mb-4">
-                <button class="action-btn" onclick="darseBaja()">
-                    <img src="~/images/abonoCancel.jpg" alt="Dar de baja" width="300" height="300">
+                <button class="action-btn" onclick="window.location.href='/Abonados/Calendario'">
+                    <img src="~/images/calendario.jpeg" alt="Tienda de productos" width="300" height="300">
                 </button>
-                <div class="btn-label">Darse de baja</div>
+                <div class="btn-label">Ver Calendario</div>
             </div>
         </div>
     </div>
@@ -142,54 +141,51 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-</body>
+    <script>
+        //Cambios James  Funciona el crear abonados
+        function darseAlta() {
+            $('#pgAbonado').css('display', 'none');
+            $('#formularioAlta').css('display', 'block');
+        }
 
-</html>
+        function cancelarAlta() {
+            $('#formularioAlta').css('display', 'none');
+            $('#pgAbonado').css('display', 'block');
+        }
 
-<script>
+        $(document).ready(function () {
+            $('#formularioAbonado').submit(function (event) {
+                event.preventDefault();
 
-    //Cambios James  Funciona el crear abonados
-    function darseAlta() {
-        $('#pgAbonado').css('display', 'none');
-        $('#formularioAlta').css('display', 'block');
-    }
+                var nombre = $('#nombre').val();
+                var apellido = $('#apellido').val();
+                var telefono = $('#telefono').val();
+                var precio = $('#precio').val();
 
-    function cancelarAlta() {
-        $('#formularioAlta').css('display', 'none');
-        $('#pgAbonado').css('display', 'block');
-    }
+                var abonado = {
+                    AbonadoNombre: nombre,
+                    AbonadoApellido: apellido,
+                    AbonadoTelefono: telefono,
+                    Precio: precio
+                };
 
-    $(document).ready(function () {
-        $('#formularioAbonado').submit(function (event) {
-            event.preventDefault();
-
-            var nombre = $('#nombre').val();
-            var apellido = $('#apellido').val();
-            var telefono = $('#telefono').val();
-            var precio = $('#precio').val();
-
-            var abonado = {
-                AbonadoNombre: nombre,
-                AbonadoApellido: apellido,
-                AbonadoTelefono: telefono,
-                Precio: precio
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: 'https://localhost:7074/api/Abonados',
-                data: JSON.stringify(abonado),
-                contentType: 'application/json',
-                success: function (response) {
-                    alert('¡Te has dado de alta como abonado exitosamente!');
-                    $('#formularioAbonado')[0].reset();
-                    $('#formularioAlta').css('display', 'none');
-                    $('#pgAbonado').css('display', 'block');
-                },
-                error: function () {
-                    alert('Error al darse de alta como abonado. Por favor, inténtalo de nuevo más tarde.');
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://localhost:7074/api/Abonados',
+                    data: JSON.stringify(abonado),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        alert('¡Te has dado de alta como abonado exitosamente!');
+                        $('#formularioAbonado')[0].reset();
+                        $('#formularioAlta').css('display', 'none');
+                        $('#pgAbonado').css('display', 'block');
+                    },
+                    error: function () {
+                        alert('Error al darse de alta como abonado. Por favor, inténtalo de nuevo más tarde.');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+</body>
+</html>

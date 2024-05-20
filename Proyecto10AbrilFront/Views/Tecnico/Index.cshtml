@@ -15,7 +15,7 @@
    
 
     <!-- Contenido principal -->
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="jumbotron">
             <h1 class="display-4">¡Bienvenido  Entrenador !</h1>
             <p class="lead">Aquí puedes gestionar todos los aspectos relacionados con los  jugadores,  y cuerpo tecnico .</p>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">Jugadores</div>
                     <div class="card-body">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">Cuerpo Tecnico</div>
                     <div class="card-body">
@@ -42,7 +42,16 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Calendario Partidos</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra Partidos Equipo.</p>
+                        <a href="@Url.Action("Calendario", "Abonados")" class="btn btn-primary">Calendario Partidos </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

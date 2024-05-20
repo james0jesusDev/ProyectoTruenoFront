@@ -19,6 +19,7 @@
                     <th>Sueldo</th>
                     <th>Lesionado</th>
                     <th>Usuario</th>
+                    <th>Fotografía</th>
                     @*<th>Acciones</th>*@
                 </tr>
             </thead>
@@ -53,7 +54,7 @@
                         '<td>' + item.jugadorSueldo + '</td>' +
                         '<td>' + (item.lesionado === 0 ? 'Sí' : (item.lesionado === 1 ? 'No' : 'En Pruebas')) + '</td>' +
                         '<td>' + item.jugadorUser + '</td>' +
-                        '<td><img src="' + item.imageUrl + '" class="img-thumbnail" alt="Imagen del Jugador"></td>' +
+                        '<td><img src="' + item.imageUrl + '" class="imagen-jugador" alt="Imagen del Jugador"></td>' +
                         '</tr>';
                     $('#tableBodyJugadores').append(row);
                 });

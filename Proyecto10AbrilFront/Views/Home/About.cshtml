@@ -1,80 +1,162 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
-
-    <p>Use this area to provide additional information.</p>
-</main>
-
-
-@* Alejandro prueba a ver como te gusta mas, ami parecer sin el bootstrap, porque cambia el footer con bootsap *@
-
-<!--<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acerca de Trueno</title>-->
-<!-- Bootstrap CSS -->
-<!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>-->
+    <title>Acerca de Trueno</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #007bff;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 30px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        blockquote {
+            margin-top: 30px;
+            border-left: 5px solid #007bff;
+            padding-left: 20px;
+            font-style: italic;
+        }
+
+            blockquote footer {
+                margin-top: 10px;
+                color: #666;
+            }
+
+        .player {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+            .player img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                margin-right: 20px;
+                border: 2px solid #007bff;
+            }
+
+        .player-info {
+            flex-grow: 1;
+        }
+    </style>
+</head>
 <body>
     <div class="container">
-        <h1 class="text-center mt-5">Acerca de Trueno</h1>
-        <div class="row mt-5">
+        <h1>Acerca de Trueno</h1>
+        <div class="row">
             <div class="col-md-6">
                 <h2>Historia del equipo</h2>
-
-                <p>Trueno es un equipo de fútbol fundado en la vibrante ciudad de Electrópolis. Desde su humilde comienzo, Trueno se ha convertido en un símbolo de unidad, determinación y espíritu competitivo.</p>
-                <img src="~/images/_bfac69ec-7f32-4d5b-8390-1afcd08c3829 (2).jpg" alt="Equipo Trueno" class="img-fluid mt-3">
+                <p>Trueno es mucho más que un equipo de fútbol. Fundado en la vibrante ciudad de Electrópolis, nació de la pasión y el compromiso de un grupo de amigos. Desde su humilde comienzo, Trueno ha crecido hasta convertirse en un símbolo de unidad, determinación y espíritu competitivo.</p>
+                <img src="~/images/_bfac69ec-7f32-4d5b-8390-1afcd08c3829 (2).jpg" alt="Equipo Trueno">
             </div>
             <div class="col-md-6">
                 <h2>Información del equipo</h2>
-                <p>Trueno está compuesto por jugadores talentosos, un cuerpo técnico dedicado y un personal clave que trabaja incansablemente para alcanzar el éxito.</p>
-                <ul>
-                    <li>Jugador 1 - Posición</li>
-                    <li>Jugador 2 - Posición</li>
-                    <!-- Añade más jugadores según sea necesario -->
-                </ul>
+                <p>Trueno está compuesto por jugadores talentosos, un cuerpo técnico dedicado y un personal clave que trabaja incansablemente para alcanzar el éxito. Nuestros jugadores provienen de diversos lugares y culturas, pero comparten una pasión común por el fútbol y un compromiso inquebrantable con el equipo.</p>
+
+
+
+                <div class="col-md-6">
+                    <h2>Jugadores destacados</h2>
+                    <div class="player">
+                        <img src="~/images/_2fc03db0-492e-48d1-9541-4bb0fd806a89.png" alt="Jugador 1">
+                        <div class="player-info">
+                            <h3>Juan Pérez</h3>
+                            <p>Posición: Delantero</p>
+                            <p>Nacionalidad: Argentina</p>
+                            <p>Edad: 28</p>
+                        </div>
+                    </div>
+                    <div class="player">
+                        <img src="~/images/_833d50b0-3d0b-4b92-9303-9a4788fb19c0.png" alt="Jugador 2">
+                        <div class="player-info">
+                            <h3>Maria López</h3>
+                            <p>Posición: Centrocampista</p>
+                            <p>Nacionalidad: España</p>
+                            <p>Edad: 25</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-6">
                 <h2>Valores y filosofía</h2>
-                <p>En Trueno, creemos en el trabajo en equipo, la dedicación, la integridad y el compromiso con la excelencia. Estos valores nos guían en todas nuestras acciones y decisiones, tanto dentro como fuera del campo.</p>
+                <p>En Trueno, creemos en el trabajo en equipo, la dedicación, la integridad y el compromiso con la excelencia. Estos valores nos guían en todas nuestras acciones y decisiones, tanto dentro como fuera del campo. Nos esforzamos por ser un ejemplo positivo para nuestra comunidad y para los jóvenes que nos admiran.</p>
             </div>
             <div class="col-md-6">
                 <h2>Logros y reconocimientos</h2>
-                <p>Trueno ha ganado numerosos campeonatos locales y ha recibido reconocimientos por su excelencia en el campo de juego.</p>
-                <ul>
-                    <li>Campeonato local año X</li>
-                    <li>Récord de goles anotados en una temporada</li>
-                    <!-- Añade más logros según sea necesario -->
-                </ul>
+                <p>Trueno ha ganado numerosos campeonatos locales y ha recibido reconocimientos por su excelencia en el campo de juego. Nuestros logros incluyen múltiples títulos de liga, trofeos de copa y reconocimientos individuales para nuestros jugadores destacados. Nos enorgullece nuestro historial de éxito, pero siempre buscamos superarnos y alcanzar nuevas metas.</p>
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-6">
                 <h2>Comunidad y compromiso social</h2>
-                <p>Trueno se enorgullece de su participación en la comunidad local y su compromiso con causas sociales.</p>
+                <p>Trueno se enorgullece de su participación en la comunidad local y su compromiso con causas sociales. Organizamos eventos benéficos, visitas a hospitales y programas de inclusión para niños desfavorecidos. Creemos en el poder del deporte para unir a las personas y crear un cambio positivo en el mundo.</p>
             </div>
             <div class="col-md-6">
                 <h2>Testimonios y comentarios</h2>
-                <blockquote class="blockquote">
-                    <p class="mb-0">"Trueno no es solo un equipo, es una familia. Estoy orgulloso de formar parte de esta increíble comunidad".</p>
-                    <footer class="blockquote-footer">Jugador destacado</footer>
+                <blockquote>
+                    <p>"Trueno no es solo un equipo, es una familia. Estoy orgulloso de formar parte de esta increíble comunidad".</p>
+                    <footer>Jugador destacado</footer>
+                </blockquote>
+                <blockquote>
+                    <p>"Trueno representa todo lo que amo del fútbol: pasión, compañerismo y espíritu de lucha. Es un honor vestir esta camiseta".</p>
+                    <footer>Capitán del equipo</footer>
+                </blockquote>
+                <blockquote>
+                    <p>"La experiencia en Trueno ha sido transformadora para mí. Me ha enseñado valores que llevaré conmigo para siempre".</p>
+                    <footer>Jugador juvenil prometedor</footer>
                 </blockquote>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap JS y jQuery (opcional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div class="row">
+           
+        </div>
+    </div>
 </body>
 </html>
-

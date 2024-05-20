@@ -44,35 +44,7 @@
     </style>
 </head>
 <body>
-    <!-- Encabezado -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/Admin/Index">Inicio <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("AbonadosAdmin", "Abonados")">Abonados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("ProductosTotal","Visitante")">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Economía</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+   
 
     <!-- Contenido principal -->
     <div class="container mt-5">
@@ -107,10 +79,46 @@
                     <div class="card-header">Productos</div>
                     <div class="card-body">
                         <p class="card-text">Administra los productos del proyecto.</p>
-                        <a href="@Url.Action("ProductosTotal","Visitante")" class="btn btn-primary">Ir a Productos</a>
+                        <a href="@Url.Action("ProductosAdmin","Visitante")" class="btn btn-primary">Ir a Productos</a>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Calendario</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra el calendario del proyecto.</p>
+                        <a href="@Url.Action("CalendarioAdmin","Admin")" class="btn btn-primary">Ir al Calendario</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Gastos</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra los gastos del proyecto.</p>
+                        <a href="@Url.Action("Index","Gastos")" class="btn btn-primary">Ir a los gastos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Cuerpo Tecnico</div>
+                    <div class="card-body">
+                        <p class="card-text">Administra los gastos del proyecto.</p>
+                        <a href="@Url.Action("CuerpoTecnico","Tecnico")" class="btn btn-primary">Ir a los gastos</a>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">LogOut</div>
+                    <div class="card-body">
+                        <p class="card-text">LogOut.</p>
+                        <a class="btn btn-primary" href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>*@
         </div>
     </div>
 

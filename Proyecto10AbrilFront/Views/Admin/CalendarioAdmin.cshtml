@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Trueno FC - 2024</title>
+    <!-- Asegúrate de que la URL de la hoja de estilos CSS sea correcta -->
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Color de fondo */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* La imagen no se desplaza con el scroll */
+            color: #333; /* Color de texto principal */
+        }
+
+        .container {
+            margin-top: 50px; /* Espacio superior para evitar solapamiento con el navbar */
+        }
+
+        .form-control {
+            width: 200px; /* Ancho del select */
+            margin: auto; /* Centrar el select */
+        }
+
+        .mes-container {
+            display: none;
+            margin-top: 20px; /* Espacio entre meses */
+        }
+
+        /* Estilos específicos para los partidos */
+        .partidos li {
+            list-style-type: none;
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Borde ligero */
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo de los partidos */
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+            .partidos li:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra al pasar el mouse */
+            }
+
+            .partidos li img {
+                max-width: 40px; /* Tamaño máximo del logo del equipo */
+                height: auto;
+                margin-right: 10px; /* Espacio a la derecha del logo */
+            }
+
+        .fecha {
+            font-weight: bold;
+        }
+
+        .competición {
+            font-style: italic;
+        }
+
+        .equipo-local,
+        .equipo-visitante {
+            font-weight: bold;
+        }
+
+        .estadio {
+            font-style: italic;
+        }
+
+        .btn-comprar {
+            background-color: #28a745; /* Color de botón */
+            color: #fff; /* Color de texto del botón */
+            border: none;
+            padding: 5px 10px; /* Espaciado interno del botón */
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transición suave */
+        }
+
+            .btn-comprar:hover {
+                background-color: #218838; /* Color de botón al pasar el mouse */
+            }
+
+        .competición, .equipo-local, .equipo-visitante, .hora, .estadio {
+            color: #333; /* Color del texto secundario */
+        }
+
+        h1, h3, h2 {
+            color: #007bff;
+        }
+
+        th {
+            color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #343a40
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/Admin/Index">Administracion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AbonadosAdmin", "Abonados")">Abonados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("JugadoresAdmin", "Jugadores")">Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ProductosAdmin", "Visitante")">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Calendario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index","Gastos")">Economía</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+
+
+
+
+    
+
+        <div class="container">
+            <h1>Calendario Trueno FC - 2024</h1>
+
+            <select id="mes" class="form-control mb-3 text-center">
+                <option value="0">Todos los Mes</option>
+                <option value="abril">Abril</option>
+                <option value="mayo">Mayo</option>
+            </select>
+
+            <div class="mes-container" id="0">
+                <h3 class="text-center"> 2024</h3>
+                <ul class="partidos" id="">
+                    <!-- Los partidos de abril se cargarán aquí mediante JavaScript -->
+                </ul>
+            </div>
+
+            <div class="mes-container" id="abril">
+                <h3 class="text-center">Abril 2024</h3>
+                <ul class="partidos" id="partidos_abril">
+                    <!-- Los partidos de abril se cargarán aquí mediante JavaScript -->
+                </ul>
+            </div>
+
+            <div class="mes-container" id="mayo">
+                <h3 class="text-center">Mayo 2024</h3>
+                <ul class="partidos" id="partidos_mayo">
+                    <!-- Los partidos de mayo se cargarán aquí mediante JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#mes').change(function () {
+                    var mesSeleccionado = $(this).val();
+                    $('.mes-container').hide();
+                    if (mesSeleccionado !== '0') {
+                        $('#' + mesSeleccionado).show();
+                    } else {
+                        $('.mes-container').show();
+                    }
+                });
+
+                var baseUrl = 'https://localhost:7074'; // Reemplaza esto con la URL base de tu servidor
+
+                // Obtener los partidos del API y mostrarlos
+                $.getJSON(baseUrl + '/api/Partidoes', function (data) {
+                    // Función para agregar los partidos a la lista de partidos de un mes
+                    function agregarPartidos(partidos, mes) {
+                        var listaPartidos = $('#partidos_' + mes);
+                        $.each(partidos, function (index, partido) {
+                            var listItem = '<li>' +
+                                '<span class="fecha">' + partido.fecha + '</span><br>' +
+                                '<span class="competición">LaLiga - Jornada ' + partido.jornada + '</span><br>' +
+                                '<div class="d-flex align-items-center">' +
+                                '<img src="' + baseUrl + partido.logoLocal + '" alt="' + '">' +
+                                '<span class="equipo-local">' + partido.equipoLocal + '</span>' +
+                                '</div>' +
+                                '<span class="vs">vs</span>' +
+                                '<div class="d-flex align-items-center">' +
+                                '<img src="' + baseUrl + partido.logoVisitante + '" alt="' + '">' +
+                                '<span class="equipo-visitante">' + partido.equipoVisitante + '</span>' +
+                                '</div><br>' +
+                                '<span class="hora">' + partido.hora + '</span><br>' +
+                                '<span class="estadio">' + partido.estadio + '</span><br>' +
+                                '<button class="btn btn-comprar mt-2">Comprar entradas</button>' +
+                                '</li>';
+                            listaPartidos.append(listItem);
+                        });
+                    }
+
+                    // Filtrar los partidos por mes y agregarlos a la lista correspondiente
+                    var partidosAbril = data.filter(function (partido) {
+                        return partido.fecha.startsWith('2024-04');
+                    });
+                    agregarPartidos(partidosAbril, 'abril');
+
+                    var partidosMayo = data.filter(function (partido) {
+                        return partido.fecha.startsWith('2024-05');
+                    });
+                    agregarPartidos(partidosMayo, 'mayo');
+                });
+
+                $('.mes-container').show();
+                // Mostrar el mes actual al cargar la página
+                var mesActual = new Date().getMonth() + 1; // Se suma 1 porque los meses son base 0 (enero = 0)
+                $('#' + mesActual).show();
+                $('#mes').val(mesActual);
+            });
+        </script>
+
+
+    </body>
+
+
+</html>

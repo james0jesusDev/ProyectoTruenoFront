@@ -3,90 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Productos</title>
+    <title>Catálogo de Camisetas - Trueno FC</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Estilos para el fondo */
         body {
-            background-color: #f8f9fa;
-            background-image: url('../../images/estadio.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-image: url('../../images/tienda2.jpeg');
+            background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+            background-size: cover; /* Cubre todo el área visible con la imagen */
             color: #fff;
             font-family: Arial, sans-serif;
         }
 
         /* Estilos para el contenedor principal */
         .container {
-            padding: 5px;
+            padding: 20px;
             text-align: center;
         }
 
-        p {
-            font-weight: bold;
-        }
-
-        h2 {
+        h1 {
             color: #007bff;
             font-weight: bold;
+            transition: color 0.3s;
         }
 
-        /* Estilos para los botones de acción */
-        .action-btn {
-            border: none;
-            background: none;
-            cursor: pointer;
-            transition: transform 0.3s, filter 0.3s;
-        }
-
-            .action-btn:hover {
-                transform: scale(1.1);
-                filter: brightness(1.2);
+            h1:hover {
+                color: #0056b3;
             }
 
-        /* Estilos para el texto de los botones */
-        .btn-label {
-            font-size: 18px;
-            margin-top: 10px;
+        .card {
+            background-color: #2c3e50; /* Color oscuro para las cards */
+            border: none;
+            transition: transform 0.3s;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
         }
 
-        /* Estilos para el fondo del formulario */
-        .form-bg {
-            background-color: rgba(239, 156, 86, 0.5);
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+        .card-img-top {
+            width: 100%;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            transition: transform 0.3s;
         }
 
-        .imagen-producto {
-            width: 200px; /* Tamaño deseado para la imagen */
-            height: auto; /* Altura automática para mantener la proporción */
-        }
+            .card-img-top:hover {
+                transform: scaleX(-1);
+            }
 
-        .content-container {
+        .card-body {
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para resaltar el texto */
-            border-radius: 8px;
-            margin-top: 20px;
         }
 
-        /* Estilos para el texto dentro de los productos */
-        .card-body h5,
-        .card-body p {
-            color: #000; /* Color del texto negro */
+        .card-title {
+            color: #FFA500; /* Color naranja oscuro para el título de la card */
+            font-weight: bold;
         }
+
+        .card-text {
+            color: #2c3e50;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: bold;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+        footer {
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+            color: #fff;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0; /* Ajuste el pie de página a la izquierda */
+            width: 100%;
+        }
+
+        .footer-container {
+            width: 100%; /* Ajustar el ancho del contenedor del pie de página */
+            margin: 0 auto; /* Centrar el contenido del pie de página */
+   
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Catálogo de Productos</h1>
+        <h1>Catálogo de Camisetas - Trueno FC</h1>
         <div class="row justify-content-center mt-5">
             <!-- Producto 1 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="~/images/Camisa1.PNG" class="card-img-top imagen-producto" alt="Producto 1">
+                    <img src="~/images/Camisa1.PNG" class="card-img-top" alt="Camiseta Titular">
                     <div class="card-body">
-                        <h5 class="card-title">Camiseta Titular </h5>
-                        <p class="card-text">Mostrando tus colores,elegancia y honor</p>
-                        <a href="#" class="btn btn-primary">Ver Detalles</a>
+                        <h5 class="card-title">Camiseta Titular</h5>
+                        <p class="card-text">Mostrando tus colores, elegancia y honor.</p>
+                        @*<a href="#" class="btn btn-primary">Ver Detalles</a>*@
                     </div>
                 </div>
             </div>
@@ -94,18 +113,39 @@
             <!-- Producto 2 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="~/images/Camisa3.PNG" class="card-img-top imagen-producto" alt="Producto 2">
+                    <img src="~/images/Camisa3.PNG" class="card-img-top" alt="Camiseta Visitante">
                     <div class="card-body">
-                        <h5 class="card-title">Camiseta Secundaria</h5>
-                        <p class="card-text">Representando la franja, diseño caótico</p>
-                        <a href="#" class="btn btn-primary">Ver Detalles</a>
+                        <h5 class="card-title">Camiseta Visitante</h5>
+                        <p class="card-text">Representando la franja, diseño caótico.</p>
+                        @*<a href="#" class="btn btn-primary">Ver Detalles</a>*@
                     </div>
                 </div>
             </div>
 
-            <!-- Agrega más productos según sea necesario -->
+            <!-- Producto 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="~/images/Camisa5.PNG" class="card-img-top" alt="Camiseta del Portero">
+                    <div class="card-body">
+                        <h5 class="card-title">Camiseta de Entrenamiento</h5>
+                        <p class="card-text">Ideal para tus sesiones de entrenamiento, cómoda y resistente.</p>
+                        @*<a href="#" class="btn btn-primary">Ver Detalles</a>*@
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div>
+                    <h5>Información de Contacto</h5>
+                    <p>Ciudad: Vallecas Correo Electrónico: info@truenofc.com</p>
+                    <p>Dirección: Calle Trueno 123 Teléfono Principal: 123-456-789</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

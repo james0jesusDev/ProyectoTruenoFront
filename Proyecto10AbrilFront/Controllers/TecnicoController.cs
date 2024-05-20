@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Proyecto10AbrilFront.Controllers
 {
-    [Authorize(Roles = "Entrenador")]
+   
     public class TecnicoController : Controller
     {
         // GET: Tecnico
@@ -22,7 +22,7 @@ namespace Proyecto10AbrilFront.Controllers
             return View();
 
         }
-        [Authorize(Roles = "Entrenador")]
+        [Authorize(Roles = "Entrenador,Admin")]
         public ActionResult CuerpoTecnico()
         {
             return View();
